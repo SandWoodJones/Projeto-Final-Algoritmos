@@ -15,5 +15,13 @@ int elevado(int a, int b, int res) {
 int fatorial(int n, int res) {
 	if (n == 0) return res;
 	res = res * n;
-	fatorial(n - 1, res);
+	return fatorial(n - 1, res);
+}
+
+void pares(int n, int i) {
+	if (i > n) printf("\n");
+	else {
+		if (i % 2 == 0) printf("%d ", i);
+		pares(n, i+1);
+	}
 }
