@@ -10,8 +10,6 @@
 #define ENTRADA 'E'
 #define PAREDE 'P'
 
-void printar_sala(int N, int M, char sala[N][M]);
-
 void resolver_labirinto(int N, int M, char sala[N][M]);
 
 #endif

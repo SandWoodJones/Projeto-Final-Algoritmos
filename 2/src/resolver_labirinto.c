@@ -45,9 +45,9 @@ void resolver_labirinto(int N, int M, char sala[N][M]) {
         for (int j = 0; j < 4; j++) {
             Coord celula = adj[j];
             
-            if (celula.x < 0 || celula.x > N) continue; // Não queremos células que estão fora do quarto pelos lados.
-            if (celula.y < 0 || celula.y > M) continue; // Não queremos células que estão fora do quarto por cima ou por baixo.
-            if (sala[celula.x][celula.y] == PAREDE) continue; // Não queremos paredes.
+            if (celula.x <= 0 || celula.x > N) continue; // Não queremos células que estão fora do quarto pelos lados.
+            if (celula.y <= 0 || celula.y > M) continue; // Não queremos células que estão fora do quarto por cima ou por baixo.
+            if (sala[celula.x - 1][celula.y - 1] == PAREDE) continue; // Não queremos paredes.
 
             // Não queremos células que ja estão na lista
             bool esta_na_lista = false;
@@ -59,19 +59,30 @@ void resolver_labirinto(int N, int M, char sala[N][M]) {
             if (!esta_na_lista) {
                 lista[index] = celula;
                 index++;
-                if (sala[celula.x][celula.y] == ENTRADA) entrada_encontrada = true; // Encontramos a entrada.
+                if (sala[celula.x - 1][celula.y - 1] == ENTRADA) entrada_encontrada = true; // Encontramos a entrada.
             }
         }
     }
 
-    // Temos agora a lista de todos os passos da saída até chegarmos a entrada. Agora, desses passos precisamos escolher o caminho mais curto:
-    tamanho = lista[index - 1] + 1;
-    Coord menorCaminho[tamanho];
-    menorCaminho[0] = lista[index - 1];
-    printf("menorCaminho[0]=%d %d %d\n", menorCaminho[0].x, menorCaminho[0].y, menorCaminho[0].n);
-
-    for (int i = 0; i < index; i++) {
-        printf("lista[%d]=%d %d %d\n", i, lista[i].x, lista[i].y, lista[i].n);
-        //sala[lista[i].x][lista[i].y] = lista[i].n + '0';
+    // Agora criamos outra lista que representa o menor caminho. Essa lista começa na entrada e termina na saída:
+    tamanho = lista[index - 1].n + 1; // numero de passos.
+    Coord caminho[tamanho];
+    caminho[0] = lista[index - 1];
+    int cIndex = 0; // variável indexadora do caminho.
+    for (int i = index - 2; i > 0; i--) { // Passamos pela lista de coordenadas de tras pra frente:
+        Coord passo = caminho[cIndex];
+        if (((lista[i].x == passo.x + 1 || lista[i].x == passo.x - 1) && lista[i].y == passo.y) || // adjacente pelos lados.
+            ((lista[i].y == passo.y + 1 || lista[i].y == passo.y - 1) && lista[i].x == passo.x)) { // adjacente por cima ou por baixo.
+            cIndex++;
+            caminho[cIndex] = lista[i];
+        }
     }
+    caminho[tamanho - 1] = (Coord){Xs, Ys, 0}; // adicionamos a saida a lista de passos.
+    
+    // Printamos o passo a passo:
+    for (int i = tamanho - 2; i > 0; i--) {
+        printf("%d %d\n", caminho[i].x, caminho[i].y);
+    }
+    // Printamos o número total de passos:
+    printf("%d\n", caminho[0].n - 1);
 }

@@ -8,6 +8,12 @@ int main() {
 	
 	printf("Os numeros pares de 0 a 31 sao: ");
 	pares(31, 0);
+    
+    char* frase = "Sabendo disso ele foi logo correndo para o aeroporto";
+    printf("A letra 'e' aparece %d vezes na frase \"%s\".\n", procurar(frase, 'e', 0, 0), frase); 
+
+    int vec[] = {10, 5, 3, 7, 9, 1, 2, 6, 4, 8, 0};
+    printf("A índice do número 4 na lista [10,5,3,7,9,1,2,6,4,8,0] é %d.\n", acharIndice(vec, 11, 4, 0));  
 
 	return 0;
 }

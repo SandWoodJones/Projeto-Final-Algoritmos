@@ -25,3 +25,15 @@ void pares(int n, int i) {
 		pares(n, i+1);
 	}
 }
+
+int procurar(char* string, char procurado, int index, int n) {
+    if (string[index] == '\0') return n;
+    if (string[index] == procurado) n++;
+    return procurar(string, procurado, index + 1, n);
+}
+
+int acharIndice(int* vetor, int tam, int k, int index) {
+    if (vetor[index] == tam) return -1; // n nao esta no vetor
+    if (vetor[index] == k) return index;
+    return acharIndice(vetor, tam, k, index + 1);
+}

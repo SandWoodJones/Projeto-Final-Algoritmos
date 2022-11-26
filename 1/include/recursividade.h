@@ -11,8 +11,8 @@ int fatorial(int n, int res); // (c)
 
 void pares(int n, int i); // (d)
 
-int procurar(char* string, int tam, char procurado); // (e)
+int procurar(char* string, char procurado, int index, int n); // (e)
 
-int acharIndice(int* vetor, int tam, int k); // (f)
+int acharIndice(int* vetor, int tam, int k, int index); // (f)
 
 #endif

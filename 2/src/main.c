@@ -1,11 +1,5 @@
 #include "projetofinal.h"
 
-typedef struct {
-    int x;
-    int y;
-    int n;
-} Coord;
-
 int main() {
 	int N, M; // largura e comprimento
 	scanf("%d%d", &N, &M);
@@ -33,7 +27,5 @@ int main() {
 
     resolver_labirinto(N, M, sala);
     
-    printar_sala(N, M, sala);
-
     return 0;
 }
